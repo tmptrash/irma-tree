@@ -1,0 +1,46 @@
+{
+  "name": "irma-tree",
+  "version": "1.0.0",
+  "description": "irma phylogenetic tree",
+  "main": "irma-tree.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tmptrash/irma-tree.git"
+  },
+  "keywords": [
+    "irma",
+    "digital organisms",
+    "AI",
+    "genetic programming",
+    "JavaScript",
+    "VM",
+    "ES6",
+    "genetic algorithm",
+    "linear genetic programming",
+    "canvas 2d",
+    "byte code",
+    "evolution"
+  ],
+  "author": "flatline",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tmptrash/irma-tree/issues"
+  },
+  "homepage": "https://github.com/tmptrash/irma-tree#readme",
+  "dependencies": {
+    "cytoscape": "^3.4.2",
+    "cytoscape-dagre": "^2.2.2",
+    "dexie": "^2.0.4"
+  },
+  "devDependencies": {
+    "babel-register": "latest",
+    "clean-webpack-plugin": "^0.1.19",
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "webpack": "^3.12.0"
+  }
+}
