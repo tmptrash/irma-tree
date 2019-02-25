@@ -4,10 +4,11 @@
  *
  * @author flatline
  */
-const Cytoscape = require('cytoscape');
-const Dagre     = require('cytoscape-dagre');
-const Db        = require('./Db');
-const Config    = require('./Config');
+const Cytoscape  = require('cytoscape');
+const Dagre      = require('cytoscape-dagre');
+const Db         = require('./Db');
+const Config     = require('./Config');
+const Bytes2Code = require('./../../irma/src/irma/Bytes2Code');
 /**
  * We use this algorithm for creating phylogenetic tree graph
  */
@@ -25,7 +26,7 @@ class IrmaTree {
 
     run() {
         this._loadTree().then(els => {
-            window.cy = Cytoscape({
+            const cy = window.cy = Cytoscape({
                 container          : document.getElementById('cy'),
                 boxSelectionEnabled: true,
                 autounselectify    : false ,
@@ -55,6 +56,9 @@ class IrmaTree {
                 }],
                 elements           : els
             });
+
+            cy.nodes().on('cxttap', this._onRightClick.bind(this));
+            cy.nodes().on('click',  this._onLeftClick.bind(this));
         });
     }
 
@@ -76,11 +80,18 @@ class IrmaTree {
                             i--;
                         }
                     }
-                    console.log(data);
                     resolve(data);
                 })
                 .catch(reject);
         });
+    }
+
+    _onRightClick(e) {
+        document.getElementById('code-right').innerText = Bytes2Code.toCode(e.target.data().code);
+    }
+
+    _onLeftClick(e) {
+        document.getElementById('code-left').innerText = Bytes2Code.toCode(e.target.data().code);
     }
 }
 //

@@ -19,7 +19,7 @@ const Config = {
      * {Number} Amount of records we need to load from database for our
      * phylogenetic graph
      */
-    dbLimit    : 50 * 200
+    dbLimit    : 26 * 200
 };
 
 module.exports = Config;

@@ -1,21 +1,60 @@
 <!DOCTYPE>
 <html>
-  <head>
-      <title>irma phylogenetic tree visualizer</title>
-      <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
-      <script src="irma-tree.js"></script>
-      <style>
-        #cy {
-          width   : 100%;
-          height  : 100%;
-          position: absolute;
-          left    : 0;
-          top     : 0;
-        }
-      </style>
-  </head>
-  <body>
-      <div id="cy"></div>
-      <script>irmaTree.run()</script>
-  </body>
+    <head>
+        <title>irma phylogenetic tree visualizer</title>
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1">
+        <script src="irma-tree.js"></script>
+        <style>
+            body {
+                margin  : 0;
+            }
+            #cy {
+                width           : 100%;
+                height          : 100%;
+                position        : absolute;
+                left            : 0;
+                top             : 0;
+            }
+            #rpanel {
+                position        : absolute;
+                right           : 0;
+                width           : 10px;
+                height          : 100%;
+                background-color: #eee;
+                border-left     : 1px solid #9e9e9e;
+                cursor          : pointer;
+                overflow        : hidden;
+                z-index         : 1;
+                transition      : width 0.2s ease-out;
+            }
+            #content {
+                height          : 100%;
+                overflow        : hidden;
+            }
+            .code {
+                width           : 240px;
+                background-color: #eee;
+                height          : 100%;
+                float           : left;
+                padding-left    : 10px;
+                font-family     : monospace;
+            }
+            #code-right {
+                border-left     : 1px solid #9e9e9e;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="rpanel">
+            <div id="content">
+                <div id="code-left" class="code"></div>
+                <div id="code-right" class="code"></div>
+            </div>
+        </div>
+        <div id="cy"></div>
+        <script>
+            document.getElementById('rpanel').addEventListener("click", function () {this.style.width = this.style.width === '501px' ? 10 : 501});
+        </script>
+        <script>irmaTree.run()</script>
+    </body>
 </html>
