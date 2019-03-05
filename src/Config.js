@@ -3,13 +3,12 @@
  *
  * @author flatline
  */
-
 const Config = {
     /**
      * {Number} Database offset, which is used to get data from IndexedDB.
      * Amount of skipped records from the beginning
      */
-    dbOffset   : 0,
+    dbOffset: 0,
     /**
      * {Number} Amount of records (organisms) in one chunk (table row). Should
      * be the same like irma.cfg.DB_CHUNK_SIZE
@@ -19,7 +18,15 @@ const Config = {
      * {Number} Amount of records we need to load from database for our
      * phylogenetic graph
      */
-    dbLimit    : 26 * 200
-};
+    dbLimit: 26 * 200,
+    /**
+     * {Number} Minimum (closed) width of right code compare panel in pixels
+     */
+    codePanelMinWidth: 20,
+    /**
+     * {Number} Maximum (opened) width of right code compare panel in pixels
+     */
+    codePanelMaxWidth: 800
+}
 
-module.exports = Config;
+module.exports = Config
