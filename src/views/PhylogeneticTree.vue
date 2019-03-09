@@ -24,20 +24,23 @@
             },
             loadTree () {
                 return new Promise((resolve, reject) => {
-                    const data = {nodes: [], edges: []}
                     this.db.fetch(Config.dbOffset, Config.dbLimit)
                         .then(rows => {
-                            const nodes = data.nodes
+                            const data = {nodes: new Array(rows.length), edges: new Array(rows.length)}
                             const edges = data.edges
-                            for (let i = 0, len = rows.length; i < len; i++) {
-                                nodes.push(...rows[i].orgs)
-                                edges.push(...rows[i].edges)
+                            const nodes = data.nodes
+                            let e = 0
+                            for (let r = 0, len = rows.length; r < len; r++) {
+                                const row = rows[r]
+                                nodes[r] = {data: {id: row.id, code: row.code}}
+                                row.parent && (edges[e++] = {data: {source: row.parent, target: row.id}})
                             }
-                            for (let i = 0; i < nodes.length; i++) {
-                                const id = nodes[i].data.id
+                            edges.splice(e, rows.length - e)
+                            for (let n = 0; n < nodes.length; n++) {
+                                const id = nodes[n].data.id
                                 if (edges.find(n => n.data.source === id || n.data.target === id) === undefined) {
-                                    nodes.splice(i, 1)
-                                    i--
+                                    nodes.splice(n, 1)
+                                    n--
                                 }
                             }
                             resolve(data)

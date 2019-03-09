@@ -5,7 +5,6 @@
  * @author flatline
  */
 const Dexie = require('dexie').default
-const Config = require('./Config')
 
 export default class Db {
     constructor () {
@@ -28,8 +27,8 @@ export default class Db {
         if (offs === 0 && limit === undefined) {
             return this._db.orgs.toArray()
         } else if (limit === undefined) {
-            return this._db.orgs.limit((limit / Config.dbChunkSize) << 0).toArray()
+            return this._db.orgs.limit(limit).toArray()
         }
-        return this._db.orgs.offset((offs / Config.dbChunkSize) << 0).limit((limit / Config.dbChunkSize) << 0).toArray()
+        return this._db.orgs.offset(offs).limit(limit).toArray()
     }
 }

@@ -10,15 +10,10 @@ const Config = {
      */
     dbOffset: 0,
     /**
-     * {Number} Amount of records (organisms) in one chunk (table row). Should
-     * be the same like irma.cfg.DB_CHUNK_SIZE
-     */
-    dbChunkSize: 200,
-    /**
      * {Number} Amount of records we need to load from database for our
      * phylogenetic graph
      */
-    dbLimit: 26 * 200,
+    dbLimit: 8000,
     /**
      * {Number} Minimum (closed) width of right code compare panel in pixels
      */
