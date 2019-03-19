@@ -34,11 +34,11 @@
         "url": "git+https://github.com/tmptrash/irma-tree.git"
     },
     "dependencies": {
-        "vue": "^2.5.2",
         "cytoscape": "^3.4.2",
         "cytoscape-dagre": "^2.2.2",
         "dexie": "^2.0.4",
-        "jsdifflib": "^1.1.0"
+        "prettydiff": "^100.2.6",
+        "vue": "^2.5.2"
     },
     "devDependencies": {
         "autoprefixer": "^7.1.2",

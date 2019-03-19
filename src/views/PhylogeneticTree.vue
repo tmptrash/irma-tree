@@ -47,7 +47,7 @@
                         name: 'dagre',
                         animate: false,
                         nodeSep: 40,
-                        rankSep: 200 // distance between vertical nodes
+                        rankSep: 100 // distance between vertical nodes
                     },
                     style: [{
                         selector: 'node',

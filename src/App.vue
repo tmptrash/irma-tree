@@ -40,6 +40,12 @@
 
 <style lang="less">
     body {
+        &#prettydiff {
+            text-align: start;
+            &.white {
+                background: none;
+            }
+        }
         margin: 0;
     }
     #app {

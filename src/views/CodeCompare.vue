@@ -5,10 +5,10 @@
  @author flatline
 -->
 <script>
-    import './../../node_modules/jsdifflib/index.css'
+    import './../../node_modules/prettydiff/css/index.css'
     const Config = require('./../Config.js')
-    const Diff = require('jsdifflib')
     const Bytes2Code = require('./../../../irma/src/irma/Bytes2Code')
+    const PrettyDiff = require('prettydiff')
 
     export default {
         name: 'CodeCompare',
@@ -37,12 +37,17 @@
                 this.$el.innerHTML = ''
                 if (this.$el.style.width === Config.codePanelMinWidth + 'px') { return }
 
-                this.$el.appendChild(Diff.buildView({
-                    baseText: Bytes2Code.toCode(this.left),
-                    newText: Bytes2Code.toCode(this.right),
-                    baseTextName: 'Before',
-                    newTextName: 'After'
-                }))
+                const options = PrettyDiff.defaults
+                options.diff_format = 'html'
+                options.source_label = 'Code before'
+                options.diff_label = 'Code after'
+                options.source = Bytes2Code.toCode(this.left)
+                options.diff = Bytes2Code.toCode(this.right)
+                this.$el.innerHTML = PrettyDiff.mode(options)
+                //
+                // Removes PrettyDiff's title and author elements
+                //
+                this.$el.removeChild(this.$el.firstChild)
                 const authorEl = this.$el.getElementsByClassName('author')[0]
                 authorEl.parentElement.removeChild(authorEl)
             }
@@ -54,41 +59,49 @@
 </script>
 
 <template>
-    <div v-on:click="onClick" v-bind:style="{ width: width + 'px' }" class="compare"/>
+    <!-- "prettydiff" id and "white" class - are identifiers for "prettydiff" library -->
+    <div v-on:click="onClick" v-bind:style="{ width: width + 'px' }" id="prettydiff" class="compare white"/>
 </template>
 
 <style lang="less">
-    .compare {
+    #prettydiff.compare {
+        .diff {
+            border-left-width: 0;
+            margin: 0;
+            .count {
+                border-right-color: rgb(204, 204, 204);
+            }
+            li {
+                &.replace {
+                    em {
+                        background-color: #fec;
+                        color: black;
+                        border-style: none;
+                        border-width: 0;
+                        font-weight: normal;
+                        margin: 0;
+                    }
+                }
+
+                &.fold {
+                    padding-left: 12px;
+                }
+
+                width: 26px;
+                font-family: monospace;
+            }
+        }
+
+        text-align: start;
         position        : absolute;
         right           : 0;
         width           : 20px;
         height          : 100%;
         background-color: #eee;
-        border-left     : 1px solid #9e9e9e;
+        border-left     : 1px solid #999;
         cursor          : pointer;
         overflow        : auto;
         z-index         : 1;
         transition      : width 0.2s ease-out;
-        font-family     : monospace;
-
-        .diff {
-            width: 100%;
-            thead {
-                font-family: monospace;
-            }
-            tbody {
-                th {
-                    width: 30px;
-                }
-            }
-            th {
-                padding: 0 5px 0 0;
-                vertical-align: middle;
-            }
-            td {
-                padding: 0 0 0 5px;
-                font-family: monospace;
-            }
-        }
     }
 </style>
